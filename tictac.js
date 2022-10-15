@@ -34,11 +34,14 @@ const gameBoard = (() => {
 
     let mark; 
     const switchTurn = () => {
+        const turnText = document.querySelector(".player-turn"); 
         if (mark == undefined || mark == "X"){
             mark = "O";
+            turnText.textContent = "Turn to Move: O";
             return "X";
         } if (mark == "O") {
             mark = "X";
+            turnText.textContent = "Turn to Move: X";
             return "O"; 
         };
     };
@@ -68,7 +71,7 @@ const gameBoard = (() => {
         checkWins(board[a], board[b], board[c]);
     }; 
 
-    return { board, assignMark, makeMark, showMark }
+    return { board, mark, assignMark, makeMark, showMark }
 })();
 
 //make players
@@ -138,97 +141,3 @@ const gameFlow = (() => {
     gameControls.startGame();
     gameControls.restartGame(); 
 })();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const boxes = document.querySelectorAll(".box"); 
-// boxes.forEach((box) => {
-//     box.addEventListener("click", () => {
-//     box.textContent = "X";
-//     }); 
-// });
-
-// const gameBoard = (() => {
-//     let board = ["", "", "", "", "", "", "", "", ""];
-// })(); 
-
-// //make players
-// const makePlayer = (name, playerMark) => {
-//     const status = null;
-//     return { name, playerMark, status };
-// };
-
-// // game flow
-// const gameFlow = (() => {
-
-//     const startBtn = document.querySelector("#start-game-btn");
-//     startBtn.addEventListener("click", () => {
-//         document.documentElement.style.setProperty("--form-visibility", "none");
-//         startGame(); 
-
-//         let form = new FormData(document.getElementById("player-form"));
-//         let firstName = form.get("player1-name");
-//         let secondName = form.get("player2-name");
-//     });
-    
-//     function startGame() {
-//         for (i=1; i < 9; i++){
-//             startTurn(); 
-//         }; 
-//     }; 
-
-//     function startTurn() {
-        
-//     }
-
-//     return { sample }; 
-// })(); 
-
-// let playerInfo = [];
-
-// const firstPlayer = makePlayer(playerInfo[0], "X");
-// const secondPlayer = makePlayer(playerInfo[1], "O");
-
-
-// let sample; 
-
-// const startBtn = document.querySelector("#start-game-btn");
-// startBtn.addEventListener("click", () => {
-//     sample = 1; 
-    
-//     let form = new FormData(document.getElementById("player-form"));
-//     let firstName = form.get("player1-name");
-//     let secondName = form.get("player2-name");
-//     document.documentElement.style.setProperty("--form-visibility", "none");
-// });
-
-
-
-
-//placing mark 
-
-//players will enter name. Player 1 will recieve X mark, Player 2 O mark. 
-//each index in gameboard corresponds to a specific position. everytime
-// player places mark, mark is put in array 
-//after every mark, checking is done. 
-//marks that coincide w a specific pattern ends game
-//turns, 1-9. 

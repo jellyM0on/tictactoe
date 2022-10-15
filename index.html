@@ -61,14 +61,11 @@ form {
     top: 20%;
 }
 
-
-
-
-
 </style>
 </head>
 
 <body>
+    <h3 class="player-turn">Turn to Move: X</h3>
     <div class="box-container">
         <div id="r1c1" class="box cell" data-row="r1"></div>
         <div id="r1c2" class="box cell" data-row="r1"></div>
@@ -87,12 +84,12 @@ form {
             <div class="player-container">
                 <h3>Player X</h3>
                 <label for="player1">Name</label>
-                <input type="text" id="player1" name="player1-name" placeholder="X">
+                <input type="text" id="player1" name="player1-name" value="X">
             </div>
             <div class="player-container">
                 <h3>Player O</h3>
                 <label for="player2">Name</label>
-                <input type="text" id="player2" name="player2-name" placeholder="O">
+                <input type="text" id="player2" name="player2-name" value="O">
             </div>
             <button id="start-game-btn">Start Game</button>
         </form>
