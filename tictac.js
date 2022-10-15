@@ -24,9 +24,11 @@ const gameBoard = (() => {
             if (board[boxCode] !== "" ){
                 return; 
             }
+            if (playerInfo.userInfo[0].status == null) {
             board[boxCode] = switchTurn(); 
             showMark();
             checkBoard();
+            };
         }));
     }; 
 
@@ -53,10 +55,6 @@ const gameBoard = (() => {
     }; 
 
     const checkWins = (a, b, c) => {
-        if (playerInfo.userInfo[0].status !== null) {
-            return; 
-        }
-
         if ((a == b) && (b == c) && (a !== "")) {
             gameControls.winRound(a);
             return;
@@ -70,7 +68,7 @@ const gameBoard = (() => {
         checkWins(board[a], board[b], board[c]);
     }; 
 
-    return { assignMark, makeMark }
+    return { board, assignMark, makeMark, showMark }
 })();
 
 //make players
@@ -98,10 +96,16 @@ const gameControls = (() => {
 
     const restartGame = () => {
         const restartBtn = document.querySelector(".restart-btn"); 
+        restartBtn.addEventListener("click", () => {
+        playerInfo.userInfo.map(user => user.status = null); 
+        gameBoard.board.fill("");
+        gameBoard.showMark(); 
+        document.documentElement.style.setProperty("--end-visibility", "none");
+        });
+        gameControls.startGame(); 
+    };
 
-    }
-
-    return { startGame, winRound, tieRound }
+    return { startGame, winRound, tieRound, restartGame }
 })(); 
 
 const playerInfo = (() => {
@@ -132,6 +136,7 @@ const playerInfo = (() => {
 const gameFlow = (() => {
     playerInfo.getInfo(); 
     gameControls.startGame();
+    gameControls.restartGame(); 
 })();
 
 
