@@ -21,10 +21,10 @@ const gameBoard = (() => {
     const makeMark = () => {
         boxes.forEach((box) => box.addEventListener("click", () => {
             const boxCode = box.dataset.code; 
-            if (board[boxCode] !== "" ){
+            if (board[boxCode] !== ""){
                 return; 
             }
-            if (playerInfo.userInfo[0].status == null) {
+            if (playerInfo.userInfo[0].status == null || !playerInfo.userInfo[0].status) {
             board[boxCode] = switchTurn(); 
             showMark();
             checkBoard();
@@ -57,8 +57,11 @@ const gameBoard = (() => {
         shr(2,4,6);
     }; 
 
-    const checkWins = (a, b, c) => {
+    const checkWins = (a, b, c, ia, ib, ic) => {
         if ((a == b) && (b == c) && (a !== "")) {
+            boxes[ia].classList.add("highlight");
+            boxes[ib].classList.add("highlight");
+            boxes[ic].classList.add("highlight");
             gameControls.winRound(a);
             return;
         } else if (!board.includes("")) {
@@ -68,10 +71,10 @@ const gameBoard = (() => {
     };
 
     function shr(a, b, c){
-        checkWins(board[a], board[b], board[c]);
+        checkWins(board[a], board[b], board[c], a, b, c);
     }; 
 
-    return { board, mark, assignMark, makeMark, showMark }
+    return { board, boxes, assignMark, makeMark, showMark }
 })();
 
 //make players
@@ -103,6 +106,7 @@ const gameControls = (() => {
         playerInfo.userInfo.map(user => user.status = null); 
         gameBoard.board.fill("");
         gameBoard.showMark(); 
+        gameBoard.boxes.forEach((box) => box.classList.remove("highlight"));
         document.documentElement.style.setProperty("--end-visibility", "none");
         });
         gameControls.startGame(); 
