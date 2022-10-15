@@ -40,9 +40,6 @@ const gameBoard = (() => {
             return "O"; 
         };
     };
-
-    //varname = querySelectorAll('[data-row~="variable"])
-    //if varname[1].textContent == varname[2].textContent
     
     const checkBoard = () => {
         shr(0,1,2);
@@ -57,9 +54,9 @@ const gameBoard = (() => {
 
     const checkWins = (a, b, c) => {
         if ((a == b) && (b == c) && (a !== "")) {
-            winRound();
+            gameControls.winRound();
         } else if (!board.includes("")) {
-            tieRound();
+            gameControls.tieRound();
         };
     };
 
@@ -67,28 +64,60 @@ const gameBoard = (() => {
         checkWins(board[a], board[b], board[c]);
     }; 
 
-
-    const winRound = () => {
-        console.log("win"); 
-    }
-
-    const tieRound = () => {
-        console.log("tie")
-    }
-
-    return { assignMark, makeMark, checkWins }
+    return { assignMark, makeMark }
 })();
 
 //make players
-const makePlayer = (name, playerMark) => {
-    const status = null;
-    return { name, playerMark, status };
-};
+
+
+const gameControls = (() => {
+    const startGame = () => {
+        gameBoard.assignMark(); 
+        gameBoard.makeMark(); 
+    };
+
+    const winRound = () => {
+        console.log("win"); 
+    };
+
+    const tieRound = () => {
+        console.log("tie")
+    };
+
+    const endGame = () => {
+
+    };
+    return { winRound, tieRound }
+})(); 
+
+const playerInfo = (() => {
+
+    let userInfo = []; 
+
+    const makePlayer = (name, playerMark) => {
+        const status = null;
+        return { name, playerMark, status };
+    };
+
+    const getInfo = () => {
+    const startBtn = document.querySelector("#start-game-btn");
+    startBtn.addEventListener("click", () => {
+        document.documentElement.style.setProperty("--form-visibility", "none");
+        let form = new FormData(document.getElementById("player-form"));
+        const firstName = form.get("player1-name");
+        const secondName = form.get("player2-name");
+        userInfo.push(makePlayer(firstName, "X"));
+        userInfo.push(makePlayer(secondName, "O")); 
+       // startGame(); 
+    })};
+    return { userInfo, getInfo  }; 
+})();
 
 //gameFlow
 const gameFlow = (() => {
-    gameBoard.assignMark();
-    gameBoard.makeMark();
+    //playerInfo.getInfo(); 
+    // gameBoard.assignMark();
+    // gameBoard.makeMark();
 })();
 
 
