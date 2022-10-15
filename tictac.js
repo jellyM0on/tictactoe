@@ -1,9 +1,11 @@
-//gameboard
+//game board data 
 const gameBoard = (() => {
 
+    //array to contain player moves
     let board = Array(9).fill("");
     const boxes = document.querySelectorAll(".box"); 
 
+    //assigns each div box to an index in board array
     const assignMark = () => {
         let i = 0; 
         for (box of boxes) {
@@ -12,12 +14,14 @@ const gameBoard = (() => {
         }; 
     };
 
+    //to show player move/mark on board
     const showMark = () => {
         for (box of boxes) {
             box.textContent = board[box.dataset.code]; 
         };
     };
 
+    //mechanism for player to make their move. board is checked after every move
     const makeMark = () => {
         boxes.forEach((box) => box.addEventListener("click", () => {
             const boxCode = box.dataset.code; 
@@ -32,6 +36,7 @@ const gameBoard = (() => {
         }));
     }; 
 
+    //alternates players 
     let mark; 
     const switchTurn = () => {
         const turnText = document.querySelector(".player-turn"); 
@@ -46,6 +51,7 @@ const gameBoard = (() => {
         };
     };
     
+    //winning patterns
     const checkBoard = () => {
         shr(0,1,2);
         shr(3,4,5);
@@ -56,7 +62,8 @@ const gameBoard = (() => {
         shr(0,4,8);
         shr(2,4,6);
     }; 
-
+    
+    //checks for wins  
     const checkWins = (a, b, c, ia, ib, ic) => {
         if ((a == b) && (b == c) && (a !== "")) {
             boxes[ia].classList.add("highlight");
@@ -70,6 +77,7 @@ const gameBoard = (() => {
         };
     };
 
+    //shortens winning patterns
     function shr(a, b, c){
         checkWins(board[a], board[b], board[c], a, b, c);
     }; 
@@ -77,15 +85,14 @@ const gameBoard = (() => {
     return { board, boxes, assignMark, makeMark, showMark }
 })();
 
-//make players
-
-
 const gameControls = (() => {
+    //starts game
     const startGame = () => {
         gameBoard.assignMark(); 
         gameBoard.makeMark(); 
     };
 
+    //functions when round is won versus tied
     const resultText = document.querySelector(".end-result"); 
     const winRound = (a) => {
         document.documentElement.style.setProperty("--end-visibility", "block");
@@ -100,6 +107,7 @@ const gameControls = (() => {
         resultText.textContent = `Tie!`;
     };
 
+    //restarts game data 
     const restartGame = () => {
         const restartBtn = document.querySelector(".restart-btn"); 
         restartBtn.addEventListener("click", () => {
@@ -117,13 +125,16 @@ const gameControls = (() => {
 
 const playerInfo = (() => {
 
+    //container for user information 
     let userInfo = []; 
 
+    //factory to make players
     const makePlayer = (name, playerMark) => {
         const status = null;
         return { name, playerMark, status };
     };
 
+    //gets user input from form to assign user info
     const getInfo = () => {
     const startBtn = document.querySelector("#start-game-btn");
     startBtn.addEventListener("click", (e) => {
@@ -139,7 +150,7 @@ const playerInfo = (() => {
     return { userInfo, getInfo }; 
 })();
 
-//gameFlow
+//game flow
 const gameFlow = (() => {
     playerInfo.getInfo(); 
     gameControls.startGame();
