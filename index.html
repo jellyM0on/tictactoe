@@ -10,6 +10,7 @@
 
 :root{
     --form-visibility: block;
+    --end-visibility: none;
 }
 
 .box-container{
@@ -53,6 +54,12 @@ form {
     padding: 25px 0px 25px 0px;
 }
 
+.game-end-window{
+    display: var(--end-visibility);
+    background-color: darksalmon;
+    position:fixed;
+    top: 20%;
+}
 
 
 
@@ -73,6 +80,7 @@ form {
         <div id="r3c2" class="box" data-row="r3"></div>
         <div id="r3c3" class="box" data-row="r3"></div>
     </div>
+
     <div class="form-container">
         <form id="player-form">
             <h1>Tic Tac Toe</h1>
@@ -88,6 +96,11 @@ form {
             </div>
             <button id="start-game-btn">Start Game</button>
         </form>
+    </div>
+
+    <div class="game-end-window">
+        <h3 class="end-result"></h3>
+        <button>Again</button>
     </div>
 </body>
 </html>

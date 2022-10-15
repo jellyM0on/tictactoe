@@ -54,7 +54,7 @@ const gameBoard = (() => {
 
     const checkWins = (a, b, c) => {
         if ((a == b) && (b == c) && (a !== "")) {
-            gameControls.winRound();
+            gameControls.winRound(a);
         } else if (!board.includes("")) {
             gameControls.tieRound();
         };
@@ -76,18 +76,22 @@ const gameControls = (() => {
         gameBoard.makeMark(); 
     };
 
-    const winRound = () => {
-        console.log("win"); 
+    const resultText = document.querySelector(".end-result"); 
+    const winRound = (a) => {
+        document.documentElement.style.setProperty("--end-visibility", "block");
+        let winnerName = playerInfo.userInfo[0].playerMark == a ? playerInfo.userInfo[0].name : playerInfo.userInfo[1].name;
+        resultText.textContent = `${winnerName} won the round!`
     };
 
     const tieRound = () => {
-        console.log("tie")
+        document.documentElement.style.setProperty("--end-visibility", "block");
+        resultText.textContent = `Tie!`
     };
 
     const endGame = () => {
 
     };
-    return { winRound, tieRound }
+    return { startGame, winRound, tieRound }
 })(); 
 
 const playerInfo = (() => {
@@ -101,23 +105,22 @@ const playerInfo = (() => {
 
     const getInfo = () => {
     const startBtn = document.querySelector("#start-game-btn");
-    startBtn.addEventListener("click", () => {
-        document.documentElement.style.setProperty("--form-visibility", "none");
+    startBtn.addEventListener("click", (e) => {
+        e.preventDefault();
         let form = new FormData(document.getElementById("player-form"));
         const firstName = form.get("player1-name");
         const secondName = form.get("player2-name");
         userInfo.push(makePlayer(firstName, "X"));
         userInfo.push(makePlayer(secondName, "O")); 
-       // startGame(); 
+        document.documentElement.style.setProperty("--form-visibility", "none");
     })};
-    return { userInfo, getInfo  }; 
+    return { userInfo, getInfo }; 
 })();
 
 //gameFlow
 const gameFlow = (() => {
-    //playerInfo.getInfo(); 
-    // gameBoard.assignMark();
-    // gameBoard.makeMark();
+    playerInfo.getInfo(); 
+    gameControls.startGame();
 })();
 
 
