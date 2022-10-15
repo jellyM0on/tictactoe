@@ -53,10 +53,16 @@ const gameBoard = (() => {
     }; 
 
     const checkWins = (a, b, c) => {
+        if (playerInfo.userInfo[0].status !== null) {
+            return; 
+        }
+
         if ((a == b) && (b == c) && (a !== "")) {
             gameControls.winRound(a);
+            return;
         } else if (!board.includes("")) {
             gameControls.tieRound();
+            return;
         };
     };
 
@@ -80,17 +86,21 @@ const gameControls = (() => {
     const winRound = (a) => {
         document.documentElement.style.setProperty("--end-visibility", "block");
         let winnerName = playerInfo.userInfo[0].playerMark == a ? playerInfo.userInfo[0].name : playerInfo.userInfo[1].name;
+        playerInfo.userInfo.map(user => user.status = "fin"); 
         resultText.textContent = `${winnerName} won the round!`
     };
 
     const tieRound = () => {
         document.documentElement.style.setProperty("--end-visibility", "block");
-        resultText.textContent = `Tie!`
+        playerInfo.userInfo.map(user => user.status = "tie"); 
+        resultText.textContent = `Tie!`;
     };
 
-    const endGame = () => {
+    const restartGame = () => {
+        const restartBtn = document.querySelector(".restart-btn"); 
 
-    };
+    }
+
     return { startGame, winRound, tieRound }
 })(); 
 
@@ -113,7 +123,8 @@ const playerInfo = (() => {
         userInfo.push(makePlayer(firstName, "X"));
         userInfo.push(makePlayer(secondName, "O")); 
         document.documentElement.style.setProperty("--form-visibility", "none");
-    })};
+    })
+   };
     return { userInfo, getInfo }; 
 })();
 
