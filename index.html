@@ -13,16 +13,29 @@
     --end-visibility: none;
 }
 
+body {
+    background-color: #EED5C2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: monospace;
+    padding-top: 5%;
+}
+
 .box-container{
     display:grid;
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
-    height: 40vh;
-    width: 20vw;
-    border:solid;
-    
+    height: 300px;
+    width: 300px;
+    margin-top: 5%;
+   
 }
-.box-container > div {
+.box-container > div, 
+.box-container{
     border: solid;
+    border-color: #EDA4BD;
+    border-radius: 10px;
 }
 
 .form-container{
@@ -38,6 +51,8 @@
     align-items: center;
     justify-content: center;
     font-size: 50px;
+    color: hsla(222, 50%, 59%, 0.84);
+    font-family: monospace;
 }
 
  h1,

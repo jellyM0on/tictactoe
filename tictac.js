@@ -70,8 +70,9 @@ const gameBoard = (() => {
             boxes[ib].classList.add("highlight");
             boxes[ic].classList.add("highlight");
             gameControls.winRound(a);
-            return;
-        } else if (!board.includes("")) {
+            return; 
+
+        } else if (!board.includes("") && (a !== b) && (b !== c) ) {
             gameControls.tieRound();
             return;
         };
@@ -119,7 +120,6 @@ const gameControls = (() => {
         });
         gameControls.startGame(); 
     };
-
     return { startGame, winRound, tieRound, restartGame }
 })(); 
 
